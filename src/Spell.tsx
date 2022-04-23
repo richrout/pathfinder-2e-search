@@ -1,7 +1,7 @@
 import { pathbuilderData } from "./pathbuilder-data";
 import { replaceVariables } from "./utils";
+
 function Spell({ spell }: { spell: typeof pathbuilderData["spells"][0] }) {
-  console.log(spell);
   const traits = spell.traits.split(", ");
   return (
     <section className="column gap-small limit-width fill-width-with-padding">

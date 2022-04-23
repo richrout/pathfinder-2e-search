@@ -1,6 +1,6 @@
 import { pathbuilderData } from "./pathbuilder-data";
+
 function Item({ item }: { item: typeof pathbuilderData["items_all"][0] }) {
-  console.log(item);
   const traits = item.traits.split(", ");
   return (
     <section className="column gap-small limit-width fill-width-with-padding">
@@ -50,6 +50,11 @@ function Item({ item }: { item: typeof pathbuilderData["items_all"][0] }) {
           </div>
         </div>
       </div>
+      <div
+        dangerouslySetInnerHTML={{
+          __html: item.description,
+        }}
+      />
     </section>
   );
 }
