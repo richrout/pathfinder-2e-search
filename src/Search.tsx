@@ -15,15 +15,16 @@ function Search() {
       s.name.toLowerCase().includes(searchValueLower)
     );
 
-    setSpellResults(spells);
+    setSpellResults(spells.slice(0, 20));
 
     const items = pathbuilderData.items_all.filter((s) =>
       s.name.toLowerCase().includes(searchValueLower)
     );
-    setItemResults(items);
+
+    setItemResults(items.slice(0, 20));
   };
 
-  const searchDebounce = debounce(200, false, search);
+  const searchDebounce = debounce(300, false, search);
   const searchChanged: React.KeyboardEventHandler<HTMLInputElement> = (
     event
   ) => {
