@@ -36,18 +36,12 @@ function Item({ item }: { item: typeof pathbuilderData["items_all"][0] }) {
             <span className="bold">Usage </span>
             <span>{item.usage}</span>
           </div>
-          <div>
-            <span className="bold">Bulk </span>
-            <span>{item.bulk}</span>
-          </div>
-        </div>
-        <div className="row gap-medium">
-          <div>
-            <span className="bold">Activate </span>
-            <span>
-              <span className="icon-font">[one-action]</span> interact
-            </span>
-          </div>
+          {item.bulk && (
+            <div>
+              <span className="bold">Bulk </span>
+              <span>{item.bulk}</span>
+            </div>
+          )}
         </div>
       </div>
       <div
@@ -55,6 +49,38 @@ function Item({ item }: { item: typeof pathbuilderData["items_all"][0] }) {
           __html: item.description,
         }}
       />
+      {item.action0 && (
+        <div className="row">
+          <div>
+            <span className="bold">Activate </span>
+            <span>
+              <span className="icon-font">
+                {item.action0 === "1" && "[one-action]"}
+                {item.action0 === "2" && "[two-actions]"}
+                {item.action0 === "3" && "[three-actions]"}
+                {item.action0 === "0" && "[reaction]"}
+              </span>{" "}
+              <span dangerouslySetInnerHTML={{ __html: item.action0desc }} />
+            </span>
+          </div>
+        </div>
+      )}
+      {item.action1 && (
+        <div className="row">
+          <div>
+            <span className="bold">Activate </span>
+            <span>
+              <span className="icon-font">
+                {item.action1 === "1" && "[one-action]"}
+                {item.action1 === "2" && "[two-actions]"}
+                {item.action1 === "3" && "[three-actions]"}
+                {item.action1 === "0" && "[reaction]"}
+              </span>{" "}
+              <span dangerouslySetInnerHTML={{ __html: item.action1desc }} />
+            </span>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
