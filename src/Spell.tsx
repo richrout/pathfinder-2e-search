@@ -1,7 +1,8 @@
 import { pathbuilderData } from "./pathbuilder-data";
+import { replaceVariables } from "./utils";
 function Spell({ spell }: { spell: typeof pathbuilderData["spells"][0] }) {
-  const traits = spell.traits.split(", ");
   console.log(spell);
+  const traits = spell.traits.split(", ");
   return (
     <section className="column gap-small limit-width fill-width-with-padding">
       <h2 className="title">
@@ -31,8 +32,7 @@ function Spell({ spell }: { spell: typeof pathbuilderData["spells"][0] }) {
           <span className="bold">Source </span>
           <span>{spell.src || "Core Rulebook"}</span>
         </div>
-        <div className="row gap-medium"></div>
-        <div className="row gap-medium">
+        <div className="row">
           <div>
             <span className="bold">Cast </span>
             <span>
@@ -42,30 +42,19 @@ function Spell({ spell }: { spell: typeof pathbuilderData["spells"][0] }) {
                 {spell.actions === "3" && "[three-actions]"}
                 {spell.actions === "0" && "[reaction]"}
               </span>
+              <span> {spell.cast}</span>
             </span>
-          </div>
-          <div>
-            <span className="bold">Components </span>
-            <span>{spell.cast}</span>
-          </div>
-        </div>
-        <div className="row gap-medium">
-          <div>
-            <span className="bold">Range </span>
-            <span>{spell.range}</span>
-          </div>
-          <div>
-            <span className="bold">Targets </span>
-            <span>{spell.target}</span>
-          </div>
-        </div>
-        <div className="row gap-medium">
-          <div>
-            <span className="bold">Duration </span>
-            <span>{spell.duration}</span>
           </div>
         </div>
       </div>
+      <div
+        dangerouslySetInnerHTML={{
+          __html: replaceVariables(
+            spell.description2 || spell.description,
+            spell
+          ),
+        }}
+      />
     </section>
   );
 }

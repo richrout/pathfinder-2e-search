@@ -1,24 +1,33 @@
 import React, { useState } from "react";
 import { pathbuilderData } from "./pathbuilder-data";
 import Spell from "./Spell";
+import Item from "./Item";
+import { debounce } from "throttle-debounce";
 
 console.log(pathbuilderData);
 function Search() {
   const [spellResults, setSpellResults] = useState<any[]>([]);
   const [itemResults, setItemResults] = useState<any[]>([]);
 
-  const search: React.KeyboardEventHandler<HTMLInputElement> = (event) => {
-    const searchValue = event.currentTarget.value.toLowerCase();
+  const search = (value: string) => {
+    const searchValueLower = value.toLowerCase();
     const spells = pathbuilderData.spells.filter((s) =>
-      s.name.toLowerCase().includes(searchValue)
+      s.name.toLowerCase().includes(searchValueLower)
     );
 
     setSpellResults(spells);
 
     const items = pathbuilderData.items_all.filter((s) =>
-      s.name.toLowerCase().includes(searchValue)
+      s.name.toLowerCase().includes(searchValueLower)
     );
     setItemResults(items);
+  };
+
+  const searchDebounce = debounce(200, false, search);
+  const searchChanged: React.KeyboardEventHandler<HTMLInputElement> = (
+    event
+  ) => {
+    searchDebounce(event.currentTarget.value);
   };
 
   return (
@@ -30,9 +39,9 @@ function Search() {
         <div className="row input-container">
           <input
             autoFocus
-            onKeyUp={search}
+            onKeyUp={searchChanged}
             className="query-input"
-            placeholder="Enter search query"
+            placeholder="Do a search"
             type="text"
           />
           <button className="input-button" style={{ fontSize: "24px" }}>
@@ -55,7 +64,7 @@ function Search() {
         <Spell key={i} spell={r} />
       ))}
       {itemResults.map((r, i) => (
-        <div key={i}>{r.name}</div>
+        <Item key={i} item={r} />
       ))}
     </div>
   );
