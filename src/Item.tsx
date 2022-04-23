@@ -14,8 +14,8 @@ function Item({ item }: { item: typeof pathbuilderData["items_all"][0] }) {
       </h2>
       <h3 className="subtitle"></h3>
       <div className="row">
-        {traits.map((t) => (
-          <div key={t} className={`trait trait-${t.toLowerCase()}`}>
+        {traits.map((t, i) => (
+          <div key={i} className={`trait trait-${t.toLowerCase()}`}>
             {t}
           </div>
         ))}
