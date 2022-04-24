@@ -61,10 +61,10 @@ function Search() {
         </div>
       </div>
       {spellResults.map((r, i) => (
-        <Spell key={i} spell={r} />
+        <Spell key={r.name + r.url} spell={r} />
       ))}
       {itemResults.map((r, i) => (
-        <Item key={i} item={r} />
+        <Item key={r.name + r.url} item={r} />
       ))}
     </div>
   );

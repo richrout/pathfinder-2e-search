@@ -85,11 +85,6 @@ input:focus-visible {
   outline: 0;
 }
 
-select {
-  color: var(--color-text);
-  font-size: var(--font-normal);
-}
-
 table {
   border-collapse: separate;
   border-spacing: 0;
@@ -483,6 +478,24 @@ table .icon-font {
   }
 }
 
+.heighten-select {
+  margin-left: 10px;
+
+  background-color: var(--color-element-bg);
+  border-color: var(--color-element-border);
+  border-style: double;
+  border-width: 2px;
+  color: #eeeeee;
+  padding: 3px 5px;
+  font-size: 16px;
+  font-variant: small-caps;
+  font-weight: 700;
+}
+
+.auto-heighten {
+  color: var(--color-highlight);
+}
+
 .body-container {
   --color-bg: #111111;
   --color-bg-secondary: #282828;
@@ -503,4 +516,5 @@ table .icon-font {
   --color-table-odd: #342c19;
   --color-table-text: #eeeeee;
   --color-text: #eeeeee;
+  --color-highlight: #78f678;
 }

@@ -2,6 +2,7 @@ import { pathbuilderData } from "./pathbuilder-data";
 
 function Item({ item }: { item: typeof pathbuilderData["items_all"][0] }) {
   const traits = item.traits.split(", ");
+  console.log(item);
   return (
     <section className="column gap-small limit-width fill-width-with-padding">
       <h2 className="title">
@@ -14,11 +15,13 @@ function Item({ item }: { item: typeof pathbuilderData["items_all"][0] }) {
       </h2>
       <h3 className="subtitle"></h3>
       <div className="row">
-        {traits.map((t, i) => (
-          <div key={i} className={`trait trait-${t.toLowerCase()}`}>
-            {t}
-          </div>
-        ))}
+        {traits
+          .filter((t) => t)
+          .map((t, i) => (
+            <div key={i} className={`trait trait-${t.toLowerCase()}`}>
+              {t}
+            </div>
+          ))}
       </div>
       <div className="column gap-tiny">
         <div>
@@ -32,10 +35,12 @@ function Item({ item }: { item: typeof pathbuilderData["items_all"][0] }) {
           </div>
         )}
         <div className="row gap-medium">
-          <div>
-            <span className="bold">Usage </span>
-            <span>{item.usage}</span>
-          </div>
+          {item.usage && (
+            <div>
+              <span className="bold">Usage </span>
+              <span>{item.usage}</span>
+            </div>
+          )}
           {item.bulk && (
             <div>
               <span className="bold">Bulk </span>
