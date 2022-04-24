@@ -3,10 +3,12 @@ import { pathbuilderData } from "./pathbuilder-data";
 import Spell from "./Spell";
 import Item from "./Item";
 import { debounce } from "throttle-debounce";
+import Condition from "./Condition";
 
 function Search() {
   const [spellResults, setSpellResults] = useState<any[]>([]);
   const [itemResults, setItemResults] = useState<any[]>([]);
+  const [conditionResults, setConditionResults] = useState<any[]>([]);
 
   const search = (value: string) => {
     const searchValueLower = value.toLowerCase();
@@ -21,6 +23,12 @@ function Search() {
     );
 
     setItemResults(items.slice(0, 20));
+
+    const conditions = pathbuilderData.conditions.filter((s) =>
+      s.condition.toLowerCase().includes(searchValueLower)
+    );
+
+    setConditionResults(conditions.slice(0, 20));
   };
 
   const searchDebounce = debounce(300, false, search);
@@ -60,11 +68,14 @@ function Search() {
           </button>
         </div>
       </div>
-      {spellResults.map((r, i) => (
-        <Spell key={r.name + r.url} spell={r} />
+      {spellResults.map((spell) => (
+        <Spell key={spell.name + spell.url} spell={spell} />
       ))}
-      {itemResults.map((r, i) => (
-        <Item key={r.name + r.url} item={r} />
+      {itemResults.map((item) => (
+        <Item key={item.name + item.url} item={item} />
+      ))}
+      {conditionResults.map((condition) => (
+        <Condition key={condition.condition} condition={condition} />
       ))}
     </div>
   );

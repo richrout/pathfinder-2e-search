@@ -2,7 +2,6 @@ import { pathbuilderData } from "./pathbuilder-data";
 
 function Item({ item }: { item: typeof pathbuilderData["items_all"][0] }) {
   const traits = item.traits.split(", ");
-  console.log(item);
   return (
     <section className="column gap-small limit-width fill-width-with-padding">
       <h2 className="title">
