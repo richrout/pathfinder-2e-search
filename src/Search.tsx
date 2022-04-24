@@ -4,7 +4,6 @@ import Spell from "./Spell";
 import Item from "./Item";
 import { debounce } from "throttle-debounce";
 
-console.log(pathbuilderData);
 function Search() {
   const [spellResults, setSpellResults] = useState<any[]>([]);
   const [itemResults, setItemResults] = useState<any[]>([]);

@@ -9,9 +9,15 @@ export const replaceVariables = (
     .replaceAll("{v1}", formatHeightenedVariables(item.var1))
     .replaceAll("{v2}", formatHeightenedVariables(item.var2))
     .replaceAll("{v3}", formatHeightenedVariables(item.var3))
-    .replaceAll("{v4}", formatHeightenedVariables(item.var4));
+    .replaceAll("{v4}", formatHeightenedVariables(item.var4))
+    .replaceAll("MOD", "your spell casting ability modifier")
+    .replace(/INC (\d+)\+(\d+)/g, incReplacer);
   return replacedValue;
 };
+
+function incReplacer(_match: string, p1: string, _p2: string) {
+  return p1;
+}
 
 const formatHeightenedVariables = (str: string) => {
   const heightens = str.split("~");
@@ -31,5 +37,5 @@ const formatHeightenedVariables = (str: string) => {
       parseInt(level)
     )})</span> ${effect.trim()}`;
   });
-  return `<span>${heightens.join("</span> <span>")}</span>`;
+  return `<span>${heightens[0]}</span>`;
 };

@@ -7,10 +7,6 @@ function Spell({ spell }: { spell: typeof pathbuilderData["spells"][0] }) {
     <section className="column gap-small limit-width fill-width-with-padding">
       <h2 className="title">
         <div className="row gap-small align-center">
-          <svg viewBox="0 0 100 100" height="1em">
-            <circle cx="50" cy="50" r="50" fill="#4ab5f1"></circle>
-            <circle cx="50" cy="50" r="40" fill="#94805d"></circle>
-          </svg>
           <a href={spell.url} target="_blank">
             {spell.name}
           </a>
