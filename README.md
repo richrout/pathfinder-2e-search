@@ -1,4 +1,4 @@
-# Pathfinder 2e Search
+# Pathsearcher 2e
 
 A web based Pathfinder 2e search which is super useful when Archives of Nethys is down. It has descriptions etc.
 

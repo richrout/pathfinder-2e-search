@@ -1,8 +1,8 @@
 {
-  "name": "pathfinder-2e-search",
+  "name": "pathsearcher-2e",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://richrout.github.io/pathfinder-2e-search",
+  "homepage": "https://richrout.github.io/pathsearcher-2e",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

@@ -6,9 +6,9 @@ function App() {
     <div className="body-container column align-center gap-large">
       <header className="App-header">
         <h1>
-          Pathfinder 2e Search{" "}
-          <span className="icon-font">[three-actions]</span>
+          Pathsearcher 2e <span className="icon-font">[three-actions]</span>
         </h1>
+        <span>A Pathfinder 2e search based on Pathbuilder 2e data</span>
       </header>
       <Search />
     </div>

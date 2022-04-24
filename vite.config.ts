@@ -7,5 +7,5 @@ export default defineConfig({
   build: {
     chunkSizeWarningLimit: 500000
   },
-  base: "/pathfinder-2e-search/"
+  base: "/pathsearcher-2e/"
 })

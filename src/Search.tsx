@@ -41,7 +41,7 @@ function Search() {
             autoFocus
             onKeyUp={searchChanged}
             className="query-input"
-            placeholder="Do a search"
+            placeholder="Search for a spell or item"
             type="text"
           />
           <button className="input-button" style={{ fontSize: "24px" }}>
