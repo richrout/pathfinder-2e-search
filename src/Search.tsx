@@ -5,6 +5,45 @@ import Item from "./Item";
 import { debounce } from "throttle-debounce";
 import Condition from "./Condition";
 
+const allItems = [
+  ...pathbuilderData.items_all,
+  ...pathbuilderData.items_armor.map((a) => ({ ...a, __type: "Armor" })),
+  ...pathbuilderData.items_armor_magic.map((a) => ({
+    ...a,
+    __type: "Magical Armor",
+  })),
+  ...pathbuilderData.items_fundamental_runes.map((a) => ({
+    ...a,
+    __type: "Fundamental Rune",
+  })),
+  ...pathbuilderData.items_materials_armor.map((a) => ({
+    ...a,
+    __type: "Armor Material",
+  })),
+  ...pathbuilderData.items_materials_weapons.map((a) => ({
+    ...a,
+    __type: "Weapon Material",
+  })),
+  ...pathbuilderData.items_property_runes_armor.map((a) => ({
+    ...a,
+    __type: "Armor Property Rune",
+  })),
+  ...pathbuilderData.items_property_runes_shields.map((a) => ({
+    ...a,
+    __type: "Shield Property Rune",
+  })),
+  ...pathbuilderData.items_property_runes_weapons.map((a) => ({
+    ...a,
+    __type: "Weapon Property Rune",
+  })),
+  ...pathbuilderData.items_shields.map((a) => ({ ...a, __type: "Shield" })),
+  ...pathbuilderData.items_weapons.map((a) => ({ ...a, __type: "Weapon" })),
+  ...pathbuilderData.items_weapons_magic.map((a) => ({
+    ...a,
+    __type: "Magic Weapon",
+  })),
+];
+
 function Search() {
   const [spellResults, setSpellResults] = useState<any[]>([]);
   const [itemResults, setItemResults] = useState<any[]>([]);
@@ -18,7 +57,7 @@ function Search() {
 
     setSpellResults(spells.slice(0, 20));
 
-    const items = pathbuilderData.items_all.filter((s) =>
+    const items = allItems.filter((s) =>
       s.name.toLowerCase().includes(searchValueLower)
     );
 

@@ -72,6 +72,7 @@ function Spell({ spell }: { spell: typeof pathbuilderData["spells"][0] }) {
                   {spell.actions === "2" && "[two-actions]"}
                   {spell.actions === "3" && "[three-actions]"}
                   {spell.actions === "0" && "[reaction]"}
+                  {spell.actions === "-1" && "[free-action]"}
                 </span>{" "}
                 <span dangerouslySetInnerHTML={{ __html: spell.cast }}></span>
               </span>

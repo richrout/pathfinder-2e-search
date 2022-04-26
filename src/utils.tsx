@@ -29,6 +29,7 @@ export const replaceVariables = (
     .replaceAll("{v3}", formatHeightenedVariables(item.var3, heighten))
     .replaceAll("{v4}", formatHeightenedVariables(item.var4, heighten))
     .replaceAll("MOD", "your spell casting ability modifier")
+    .replaceAll("[free-action]", `<span class="icon-font">[free-action]</span>`)
     .replaceAll("[reaction]", `<span class="icon-font">[reaction]</span>`)
     .replaceAll("1 action ", `<span class="icon-font">[one-action]</span> `)
     .replaceAll("[one-action]", `<span class="icon-font">[one-action]</span>`)
