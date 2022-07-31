@@ -4,6 +4,16 @@ import Spell from "./Spell";
 import Item from "./Item";
 import { debounce } from "throttle-debounce";
 import Condition from "./Condition";
+import Feat, { FeatType } from "./Feat";
+
+const allKeys = Object.keys(pathbuilderData);
+const featKeys = allKeys.filter((k) => k.startsWith("feats_"));
+
+const allFeats: FeatType[] = [];
+for (const featName of featKeys) {
+  const feats = (pathbuilderData as any)[featName];
+  allFeats.push(...feats);
+}
 
 const allItems = [
   ...pathbuilderData.items_all,
@@ -48,6 +58,7 @@ function Search() {
   const [spellResults, setSpellResults] = useState<any[]>([]);
   const [itemResults, setItemResults] = useState<any[]>([]);
   const [conditionResults, setConditionResults] = useState<any[]>([]);
+  const [featResults, setFeatResults] = useState<any[]>([]);
 
   const search = (value: string) => {
     const searchValueLower = value.toLowerCase();
@@ -68,6 +79,12 @@ function Search() {
     );
 
     setConditionResults(conditions.slice(0, 20));
+
+    const feats = allFeats.filter((s) =>
+      s.name.toLowerCase().includes(searchValueLower)
+    );
+
+    setFeatResults(feats.slice(0, 20));
   };
 
   const searchDebounce = debounce(300, false, search);
@@ -101,6 +118,9 @@ function Search() {
       ))}
       {conditionResults.map((condition) => (
         <Condition key={condition.condition} condition={condition} />
+      ))}
+      {featResults.map((feat) => (
+        <Feat key={feat.name + feat.url} feat={feat} />
       ))}
     </div>
   );
