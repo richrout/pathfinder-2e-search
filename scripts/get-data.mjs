@@ -5,7 +5,7 @@ import csv from "csvtojson";
 
 const getData = async () => {
   const result = await fetch(
-    "https://pathbuilder2e.com/pbonline/app/fetch_all_c.php?v=51",
+    "https://pathbuilder2e.com/pbonline/app/fetch_all_c.php?v=52",
     {
       headers: {
         accept: "*/*",
