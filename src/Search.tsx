@@ -54,37 +54,67 @@ const allItems = [
   })),
 ];
 
+const stringSearch = (list: any[], searchValueLower: string) => {
+  return list
+    .filter((s) => s.name.toLowerCase().includes(searchValueLower))
+    .sort((a, b) => {
+      if (
+        a.name.toLowerCase().indexOf(searchValueLower) >
+        b.name.toLowerCase().indexOf(searchValueLower)
+      ) {
+        return 1;
+      } else if (
+        a.name.toLowerCase().indexOf(searchValueLower) <
+        b.name.toLowerCase().indexOf(searchValueLower)
+      ) {
+        return -1;
+      } else {
+        if (a.name > b.name) return 1;
+        else return -1;
+      }
+    });
+};
+
 function Search() {
   const [spellResults, setSpellResults] = useState<any[]>([]);
   const [itemResults, setItemResults] = useState<any[]>([]);
   const [conditionResults, setConditionResults] = useState<any[]>([]);
   const [featResults, setFeatResults] = useState<any[]>([]);
+  const [searchCategories, setSearchCategories] = useState<string[]>([]);
 
-  const search = (value: string) => {
+  const search = (value: string, categories = searchCategories) => {
     const searchValueLower = value.toLowerCase();
-    const spells = pathbuilderData.spells.filter((s) =>
-      s.name.toLowerCase().includes(searchValueLower)
-    );
 
-    setSpellResults(spells.slice(0, 20));
+    if (categories.includes("spells") || !categories.length) {
+      const spells = stringSearch(pathbuilderData.spells, searchValueLower);
+      setSpellResults(spells.slice(0, 20));
+    } else {
+      setSpellResults([]);
+    }
 
-    const items = allItems.filter((s) =>
-      s.name.toLowerCase().includes(searchValueLower)
-    );
+    if (categories.includes("items") || !categories.length) {
+      const items = stringSearch(allItems, searchValueLower);
+      setItemResults(items.slice(0, 20));
+    } else {
+      setItemResults([]);
+    }
 
-    setItemResults(items.slice(0, 20));
+    if (categories.includes("conditions") || !categories.length) {
+      const conditions = pathbuilderData.conditions.filter((s) =>
+        s.condition.toLowerCase().includes(searchValueLower)
+      );
 
-    const conditions = pathbuilderData.conditions.filter((s) =>
-      s.condition.toLowerCase().includes(searchValueLower)
-    );
+      setConditionResults(conditions.slice(0, 20));
+    } else {
+      setConditionResults([]);
+    }
 
-    setConditionResults(conditions.slice(0, 20));
-
-    const feats = allFeats.filter((s) =>
-      s.name.toLowerCase().includes(searchValueLower)
-    );
-
-    setFeatResults(feats.slice(0, 20));
+    if (categories.includes("feats") || !categories.length) {
+      const feats = stringSearch(allFeats, searchValueLower);
+      setFeatResults(feats.slice(0, 20));
+    } else {
+      setFeatResults([]);
+    }
   };
 
   const searchDebounce = debounce(300, false, search);
@@ -92,6 +122,21 @@ function Search() {
     event
   ) => {
     searchDebounce(event.currentTarget.value);
+  };
+
+  const filterChanged: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+    const value = event.target.value;
+    let newSearchCategories: string[] = [];
+    if (searchCategories.includes(value)) {
+      newSearchCategories = searchCategories.filter((s) => s !== value);
+    } else {
+      newSearchCategories = [value];
+    }
+    setSearchCategories(newSearchCategories);
+    search(
+      (document.getElementById("search-filter") as HTMLInputElement)?.value,
+      newSearchCategories
+    );
   };
 
   return (
@@ -105,9 +150,59 @@ function Search() {
             autoFocus
             onKeyUp={searchChanged}
             className="query-input"
-            placeholder="Search for a spell or item"
+            placeholder="Search for spells, items, feats or conditions"
             type="text"
+            id="search-filter"
           />
+        </div>
+        <div className="row row-center">
+          <input
+            checked={searchCategories.includes("spells")}
+            onChange={filterChanged}
+            className="checkbox-input"
+            type="checkbox"
+            value="spells"
+            id="spells-filter"
+          />
+          <label htmlFor="spells-filter" className="checkbox-label">
+            Spells
+          </label>
+
+          <input
+            checked={searchCategories.includes("feats")}
+            onChange={filterChanged}
+            className="checkbox-input"
+            type="checkbox"
+            value="feats"
+            id="feats-filter"
+          />
+          <label htmlFor="feats-filter" className="checkbox-label">
+            Feats
+          </label>
+
+          <input
+            checked={searchCategories.includes("items")}
+            onChange={filterChanged}
+            className="checkbox-input"
+            type="checkbox"
+            value="items"
+            id="items-filter"
+          />
+          <label htmlFor="items-filter" className="checkbox-label">
+            Items
+          </label>
+
+          <input
+            checked={searchCategories.includes("conditions")}
+            onChange={filterChanged}
+            className="checkbox-input"
+            type="checkbox"
+            value="conditions"
+            id="conditions-filter"
+          />
+          <label htmlFor="conditions-filter" className="checkbox-label">
+            Conditions
+          </label>
         </div>
       </div>
       {spellResults.map((spell) => (
@@ -120,7 +215,7 @@ function Search() {
         <Condition key={condition.condition} condition={condition} />
       ))}
       {featResults.map((feat) => (
-        <Feat key={feat.name + feat.url} feat={feat} />
+        <Feat key={feat.id + feat.name + feat.url} feat={feat} />
       ))}
     </div>
   );

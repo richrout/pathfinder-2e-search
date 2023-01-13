@@ -185,6 +185,16 @@ thead tr {
   flex-wrap: wrap;
 }
 
+.checkbox-label {
+  margin-right: 4px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox-input {
+  cursor: pointer;
+}
+
 .grid {
   display: grid;
 }
