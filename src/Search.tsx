@@ -55,6 +55,10 @@ const allItems = [
 ];
 
 const stringSearch = (list: any[], searchValueLower: string) => {
+  if (!searchValueLower?.trim()) {
+    return [];
+  }
+
   return list
     .filter((s) => s.name.toLowerCase().includes(searchValueLower))
     .sort((a, b) => {
